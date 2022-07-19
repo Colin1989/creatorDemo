@@ -15,6 +15,12 @@ export class SpineTest extends Component {
     })
     sprHats: SpriteFrame[] = [];
 
+    @property({
+        displayName: "挂点演示节点",
+        type: Node
+    })
+    socketTestNode!: Node;
+
     cur_skin_name = "full-skins/girl-spring-dress"
     start() {
         this.role.setSkin(this.cur_skin_name);
