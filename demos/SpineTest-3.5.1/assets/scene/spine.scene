@@ -253,7 +253,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": -156.534,
-      "y": -162.297,
+      "y": -87.657,
       "z": 0
     },
     "_lrot": {
@@ -332,7 +332,7 @@
       "__expectedType__": "sp.SkeletonData"
     },
     "_premultipliedAlpha": false,
-    "defaultSkin": "default",
+    "defaultSkin": "full-skins/girl-spring-dress",
     "defaultAnimation": "dance",
     "_sockets": [],
     "_debugMesh": false,
