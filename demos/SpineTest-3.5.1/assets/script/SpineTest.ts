@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Skeleton, sp, SpriteFrame, Texture2D, Sprite } from 'cc';
+import { _decorator, Component, Node, Skeleton, sp, SpriteFrame, Texture2D, Sprite, EventTouch } from 'cc';
 import SpineUtil from './SpineUtil';
 const { ccclass, property } = _decorator;
 
@@ -99,6 +99,27 @@ export class SpineTest extends Component {
         let slot = this.role.findSlot("hat");
         let tex: Texture2D = this.sprHats[parseInt(index)].texture as Texture2D;
         SpineUtil.updatePartialSkin(this.role, tex, slot);
+    }
+
+
+    paths: Map<string, string> = new Map();
+    onChangeSocket(e: EventTouch, boneName: string) {
+        this.paths["hand-front"] = 'root/skeleton-control/hips/body-down/body-up/arm-front-control/arm-front-up/arm-front-down/hand-front';
+        this.paths["leg-front-4"] = 'root/skeleton-control/hips/leg-control-front/leg-front-1/leg-front-2/leg-front-3/leg-front-4';
+
+        let sockets = this.role.sockets;
+        let socket = sockets.find((value, index) => {
+            return (value.target == this.socketTestNode)
+
+        });
+        if (!socket) {
+            let newSocket: sp.SpineSocket = new sp.SpineSocket(this.paths[boneName]);
+            this.role.sockets.push(newSocket);
+        }
+        else {
+            socket.path = this.paths[boneName];
+        }
+        this.role.sockets = this.role.sockets;
     }
 }
 
