@@ -1,3 +1,11 @@
+/*
+ * @Author: zensk zenskcode@yeah.net
+ * @Date: 2022-08-06 02:30:08
+ * @LastEditors: zensk zenskcode@yeah.net
+ * @LastEditTime: 2022-08-06 16:16:30
+ * @FilePath: \engine\common\Classes\Game.cpp
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
@@ -23,6 +31,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 #include "Game.h"
+#include "cocos/bindings/event/CustomEventTypes.h"
+#include "cocos/bindings/event/EventDispatcher.h"
+#include "cocos/bindings/jswrapper/SeApi.h"
+#include "cocos/bindings/manual/jsb_classtype.h"
+#include "cocos/bindings/manual/jsb_global.h"
+#include "cocos/bindings/manual/jsb_module_register.h"
+#include "./jsb_spine_cloth.h"
 
 #ifndef GAME_NAME
     #define GAME_NAME "CocosGame";
@@ -51,7 +66,17 @@ int Game::init() {
 
     _xxteaKey = SCRIPT_XXTEAKEY;
 
+    se::ScriptEngine *se = se::ScriptEngine::getInstance();
+    se->setExceptionCallback([](const char *location, const char *message, const char *stack) {
+        // Send exception information to server like Tencent Bugly.
+        CC_LOG_ERROR("\nUncaught Exception:\n - location :  %s\n - msg : %s\n - detail : \n      %s\n", location, message, stack);
+    });
+    // register spine extend interface
+    se->addRegisterCallback(register_all_spine_cloth);
+    jsb_register_all_modules();
+
     BaseGame::init();
+ 	registerJSB();
     return 0;
 }
 
@@ -67,4 +92,11 @@ void Game::onClose() {
     BaseGame::onClose();
 }
 
+void Game::registerJSB(){
+    se::AutoHandleScope hs;
+    se::ScriptEngine* se = se::ScriptEngine::getInstance();
+    auto global = se->getGlobalObject();
+    SE_LOGD("JS AppDelegate::registerJSB ->>>> open_dbt_sdk true");
+    global->setProperty("open_dbt_sdk", se::Value(true));
+}
 CC_REGISTER_APPLICATION(Game);

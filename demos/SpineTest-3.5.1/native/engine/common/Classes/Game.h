@@ -39,4 +39,6 @@ public:
     void onPause() override;
     void onResume() override;
     void onClose() override;
+    private:
+    void registerJSB();
 };
