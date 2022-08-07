@@ -7,8 +7,6 @@ set(CC_PROJECT_DIR ${CMAKE_CURRENT_LIST_DIR})
 set(CC_PROJ_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/Game.h
     ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/Game.cpp
- 	${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_spine_cloth.h
-    ${CMAKE_CURRENT_LIST_DIR}/../common/Classes/jsb_spine_cloth.cpp
 )
 set(CC_COMMON_SOURCES)
 set(CC_ALL_SOURCES)

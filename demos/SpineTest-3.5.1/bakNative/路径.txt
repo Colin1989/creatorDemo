@@ -1,0 +1,1 @@
+C:\CocosDashboard_1.1.1\resources\.editors\Creator\3.5.2\resources\resources\3d\engine\native\cocos\bindings\manual
