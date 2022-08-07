@@ -139,7 +139,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 320,
+    "_orthoHeight": 348.02919708029196,
     "_near": 0,
     "_far": 2000,
     "_color": {
@@ -332,8 +332,8 @@
       "__expectedType__": "sp.SkeletonData"
     },
     "_premultipliedAlpha": false,
-    "defaultSkin": "full-skins/girl-spring-dress",
-    "defaultAnimation": "dance",
+    "defaultSkin": "full-skins/boy",
+    "defaultAnimation": "aware",
     "_sockets": [],
     "_debugMesh": false,
     "_id": "f3uosu9ERBbYYPY+G1lbhm"
