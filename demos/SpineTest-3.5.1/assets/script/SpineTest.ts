@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Skeleton, sp, SpriteFrame, Texture2D, Sprite } from 'cc';
+import { _decorator, Component, Node, Skeleton, sp, SpriteFrame, Texture2D, Sprite, EventTouch } from 'cc';
 import SpineUtil from './SpineUtil';
 const { ccclass, property } = _decorator;
 
@@ -15,6 +15,12 @@ export class SpineTest extends Component {
     })
     sprHats: SpriteFrame[] = [];
 
+    @property({
+        displayName: "挂点演示节点",
+        type: Node
+    })
+    socketTestNode!: Node;
+
     cur_skin_name = "full-skins/girl-spring-dress"
     start() {
         this.role.setSkin(this.cur_skin_name);
@@ -25,26 +31,36 @@ export class SpineTest extends Component {
             this.cur_skin_name = data;
         }
     }
-
-    //@param slotName 要替换的部件的插槽名称
-    //@param targetAttaName  Spine中皮肤占位符的名字
+    /**
+    * @param skinName 要替换的部件皮肤名称
+    * @param slotName 要替换的部件的插槽名称
+    * @param targetAttaName  Spine中皮肤占位符的名字
+     */
     changeSlot(skinName: string, slotName: string, targetAttaName: string) {
+        //查找局部皮肤
         let skeletonData = this.role.skeletonData.getRuntimeData();
         let targetSkin: sp.spine.Skin = skeletonData.findSkin(skinName);
-        let curSlot = this.role.findSlot(slotName);
+
+        //查找局部皮肤下的插槽与附件
         let targetSkinSlotIndex = skeletonData.findSlotIndex(slotName);
         let atta = targetSkin.getAttachment(targetSkinSlotIndex, targetAttaName);
+
+        //查找全身皮肤下的插槽
+        let curSlot = this.role.findSlot(slotName);
+
+        //替换全身皮肤插槽的附件
         curSlot && curSlot.setAttachment(atta);
-        let skinBones = targetSkin.bones;
-        for (let i = 0, n = skinBones.length; i < n; i++) {
-            let bone = this.role._skeleton.bones[skinBones[i].index];
-            do {
-                bone.sorted = false;
-                bone.active = true;
-                bone = bone.parent;
-            } while (bone);
-        }
-        this.role._skeleton.updateCache();
+
+        // let skinBones = targetSkin.bones;
+        // for (let i = 0, n = skinBones.length; i < n; i++) {
+        //     let bone = this.role._skeleton.bones[skinBones[i].index];
+        //     do {
+        //         bone.sorted = false;
+        //         bone.active = true;
+        //         bone = bone.parent;
+        //     } while (bone);
+        // }
+        // this.role._skeleton.updateCache();
     }
 
     onChangeSpineHair(event: TouchEvent, skinName: string) {
@@ -93,6 +109,27 @@ export class SpineTest extends Component {
         let slot = this.role.findSlot("hat");
         let tex: Texture2D = this.sprHats[parseInt(index)].texture as Texture2D;
         SpineUtil.updatePartialSkin(this.role, tex, slot);
+    }
+
+
+    paths: Map<string, string> = new Map();
+    onChangeSocket(e: EventTouch, boneName: string) {
+        this.paths["hand-front"] = 'root/skeleton-control/hips/body-down/body-up/arm-front-control/arm-front-up/arm-front-down/hand-front';
+        this.paths["leg-front-4"] = 'root/skeleton-control/hips/leg-control-front/leg-front-1/leg-front-2/leg-front-3/leg-front-4';
+
+        let sockets = this.role.sockets;
+        let socket = sockets.find((value, index) => {
+            return (value.target == this.socketTestNode)
+
+        });
+        if (!socket) {
+            let newSocket: sp.SpineSocket = new sp.SpineSocket(this.paths[boneName]);
+            this.role.sockets.push(newSocket);
+        }
+        else {
+            socket.path = this.paths[boneName];
+        }
+        this.role.sockets = this.role.sockets;
     }
 }
 
