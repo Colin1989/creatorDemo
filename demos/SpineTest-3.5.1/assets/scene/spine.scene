@@ -6498,19 +6498,7 @@
     "role": {
       "__id__": 11
     },
-    "sprHats": [
-      {
-        "__uuid__": "6a2934a5-da2f-4652-9089-bf448ddc2af1@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      },
-      {
-        "__uuid__": "6806eb7d-0848-4a63-bb7f-378473c1c177@f9941",
-        "__expectedType__": "cc.SpriteFrame"
-      }
-    ],
-    "socketTestNode": {
-      "__id__": 7
-    },
+    "sprHats": [],
     "_id": "7eQTuTg5ZMSIgerR2470h6"
   },
   {

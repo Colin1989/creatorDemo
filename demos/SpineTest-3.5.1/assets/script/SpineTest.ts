@@ -31,26 +31,36 @@ export class SpineTest extends Component {
             this.cur_skin_name = data;
         }
     }
-
-    //@param slotName 要替换的部件的插槽名称
-    //@param targetAttaName  Spine中皮肤占位符的名字
+    /**
+    * @param skinName 要替换的部件皮肤名称
+    * @param slotName 要替换的部件的插槽名称
+    * @param targetAttaName  Spine中皮肤占位符的名字
+     */
     changeSlot(skinName: string, slotName: string, targetAttaName: string) {
+        //查找局部皮肤
         let skeletonData = this.role.skeletonData.getRuntimeData();
         let targetSkin: sp.spine.Skin = skeletonData.findSkin(skinName);
-        let curSlot = this.role.findSlot(slotName);
+
+        //查找局部皮肤下的插槽与附件
         let targetSkinSlotIndex = skeletonData.findSlotIndex(slotName);
         let atta = targetSkin.getAttachment(targetSkinSlotIndex, targetAttaName);
+
+        //查找全身皮肤下的插槽
+        let curSlot = this.role.findSlot(slotName);
+
+        //替换全身皮肤插槽的附件
         curSlot && curSlot.setAttachment(atta);
-        let skinBones = targetSkin.bones;
-        for (let i = 0, n = skinBones.length; i < n; i++) {
-            let bone = this.role._skeleton.bones[skinBones[i].index];
-            do {
-                bone.sorted = false;
-                bone.active = true;
-                bone = bone.parent;
-            } while (bone);
-        }
-        this.role._skeleton.updateCache();
+
+        // let skinBones = targetSkin.bones;
+        // for (let i = 0, n = skinBones.length; i < n; i++) {
+        //     let bone = this.role._skeleton.bones[skinBones[i].index];
+        //     do {
+        //         bone.sorted = false;
+        //         bone.active = true;
+        //         bone = bone.parent;
+        //     } while (bone);
+        // }
+        // this.role._skeleton.updateCache();
     }
 
     onChangeSpineHair(event: TouchEvent, skinName: string) {
