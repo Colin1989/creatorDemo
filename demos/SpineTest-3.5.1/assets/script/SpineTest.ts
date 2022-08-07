@@ -10,6 +10,11 @@ export class SpineTest extends Component {
     role: sp.Skeleton;
 
     @property({
+        type: sp.Skeleton
+    })
+    spineboy: sp.Skeleton;
+
+    @property({
         displayName: "帽子贴图",
         type: [SpriteFrame]
     })
@@ -23,6 +28,7 @@ export class SpineTest extends Component {
 
     cur_skin_name = "full-skins/girl-spring-dress"
     start() {
+        SpineUtil.copySkeletonData(this.role, this.role.skeletonData);
         this.role.setSkin(this.cur_skin_name);
     }
     onSetFullSkin(event: TouchEvent, data: string) {
@@ -106,9 +112,9 @@ export class SpineTest extends Component {
     }
 
     onChangeHatByExternalSprite(e: TouchEvent, index: string) {
-        let slot = this.role.findSlot("hat");
+        let slot = this.spineboy.findSlot("gun");
         let tex: Texture2D = this.sprHats[parseInt(index)].texture as Texture2D;
-        SpineUtil.updatePartialSkin(this.role, tex, slot);
+        SpineUtil.updatePartialSkin(this.spineboy, tex, slot);
     }
 
 
