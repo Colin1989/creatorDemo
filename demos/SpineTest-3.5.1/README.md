@@ -6,8 +6,8 @@ C:\CocosDashboard_1.1.1\resources\.editors\Creator\3.5.2\resources\resources\3d\
 
 前缀自行替换，这里建议使用定制引擎流程便于进行工程管理。
 
-![](http://zenskcode.gitee.io/h5/public/zanshang.jpg)
 # 如果对您有帮助，可以给羽毛加鸡腿哦
+![](http://zenskcode.gitee.io/h5/public/zanshang.jpg)
 
 
 # 关注公众号"羽毛不会飞"，羽毛将会定期分享更多精彩内容
