@@ -1,3 +1,5 @@
+# 限时免费提供
+
 # 3.5.x原生支持：
 
 替换工程目录bakNative下的jsb_spine_manual.cpp至引擎目录，例如
